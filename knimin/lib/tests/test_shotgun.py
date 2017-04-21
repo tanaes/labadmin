@@ -130,7 +130,7 @@ class TestShotgun(TestCase):
         obs_pool_conc, obs_pool_vol = estimate_pool_conc_vol(
                                         obs_sample_vols, self.qpcr_conc)
 
-        exp_pool_conc = 323.873027979
+        exp_pool_conc = 129.54921119166667
         exp_pool_vol = 60000.0
 
         npt.assert_almost_equal(obs_pool_conc, exp_pool_conc)
