@@ -182,7 +182,7 @@ class TestPMShotgunPool(TestHandlerBase):
         obs_cps = obs['plate_qpcr_cps']
         obs_conc = obs['plate_qpcr_concentrations']
         npt.assert_equal(obs_cps, exp_cps)
-        npt.assert_equal(obs_conc, exp_conc)
+        npt.assert_allclose(obs_conc, exp_conc, rtol=1e-06)
 
         self.assertEqual(obs['qpcr'], 'bob')
 
