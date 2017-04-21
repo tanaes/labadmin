@@ -10,7 +10,7 @@ from __future__ import division
 import numpy as np
 
 
-def compute_qpcr_concentration(cp_vals, m=-3.231, b=12.059, dil_factor=25000):
+def compute_qpcr_concentration(cp_vals, m=-3.231, b=12.059, dil_factor=10000):
     """Computes molar concentration of libraries from qPCR Cp values.
 
     Returns a 2D array of calculated concentrations, in nanomolar units

@@ -25,18 +25,23 @@ class TestShotgun(TestCase):
                                  [12.29, 7.64, 7.32, 13.74]])
 
         self.cp_vals_nan = np.array([[10.14, 7.89, 7.9, 15.48],
-                                 [7.86, 8.07, np.nan, 9.64],
-                                 [12.29, 7.64, np.nan, 13.74]])
+                                     [7.86, 8.07, np.nan, 9.64],
+                                     [12.29, 7.64, np.nan, 13.74]])
 
         self.qpcr_conc = \
+            np.array([[39.25850585, 195.12485652, 193.73923464, 0.87336277],
+                      [199.34146596, 171.63359148, 160.97081284, 56.0640694],
+                      [8.48213356, 233.17824124, 292.90620164, 3.0180584]])
+
+        self.qpcr_conc_nan = \
+            np.array([[39.25850585, 195.12485652, 193.73923464, 0.87336277],
+                      [199.34146596, 171.63359148, 0, 56.0640694],
+                      [8.48213356, 233.17824124, 0, 3.0180584]])
+
+        self.qpcr_conc_25000 = \
             np.array([[98.14626462, 487.8121413, 484.3480866, 2.183406934],
                       [498.3536649, 429.0839787, 402.4270321, 140.1601735],
                       [21.20533391, 582.9456031, 732.2655041, 7.545145988]])
-
-        self.qpcr_conc_nan = \
-            np.array([[98.14626462, 487.8121413, 484.3480866, 2.183406934],
-                      [498.3536649, 429.0839787, 0, 140.1601735],
-                      [21.20533391, 582.9456031, 0, 7.545145988]])
 
     def test_compute_shotgun_normalization_values(self):
         input_vol = 3.5
@@ -80,6 +85,12 @@ class TestShotgun(TestCase):
     def test_compute_qpcr_concentration_nan(self):
         obs = compute_qpcr_concentration(self.cp_vals_nan)
         exp = self.qpcr_conc_nan
+
+        npt.assert_allclose(obs, exp)
+
+    def test_compute_qpcr_concentration_dil_25000(self):
+        obs = compute_qpcr_concentration(self.cp_vals, dil_factor=25000)
+        exp = self.qpcr_conc_25000
 
         npt.assert_allclose(obs, exp)
 
